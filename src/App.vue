@@ -1,28 +1,29 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <vue-select-list :data="data" :height="400" v-model="value" multiple />
+    <vue-select-list :data="data" :height="400" v-model="value1" />
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import VueSelectList from "./components/vue-select-list.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld
+    VueSelectList
+  },
+  data() {
+    return {
+      value: [1, 3],
+      value1: 3,
+      data: [...Array(500).keys()].map(val => ({
+        label: `label ${val}`,
+        value: val
+      }))
+    };
   }
 };
 </script>
 
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style lang="less"></style>
