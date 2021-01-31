@@ -80,7 +80,7 @@ export default {
     value: {
       handler(val) {
         this.normalizeValue(val);
-        this.updateCheckedStatus(this.internalValue);
+        this.updateselectedStatus(this.internalValue);
       },
       immediate: true
     },
@@ -88,9 +88,9 @@ export default {
       handler() {
         this.internalData = (this.data || []).map(item => ({
           ...item,
-          checked: !!item.checked
+          selected: !!item.selected
         }));
-        this.updateCheckedStatus(this.internalValue);
+        this.updateselectedStatus(this.internalValue);
       },
       immediate: true
     }
@@ -104,26 +104,26 @@ export default {
         this.internalValue = val;
       }
     },
-    updateCheckedStatus(arr) {
+    updateselectedStatus(arr) {
       const values = Array.isArray(arr) ? arr : [arr];
       this.internalData.forEach(item => {
-        item.checked = values.includes(item[this.dataKey]);
+        item.selected = values.includes(item[this.dataKey]);
       });
     },
     onClick(data) {
       const key = data[this.dataKey];
       if (this.multiple) {
         const item = this.internalData.find(item => item[this.dataKey] === key);
-        if (item.checked) {
+        if (item.selected) {
           const index = this.internalValue.indexOf(key);
           this.internalValue.splice(index, 1);
         } else {
           this.internalValue.push(key);
         }
-        item.checked = !item.checked;
+        item.selected = !item.selected;
       } else {
         this.internalData.forEach(item => {
-          item.checked = item[this.dataKey] === key;
+          item.selected = item[this.dataKey] === key;
         });
         this.internalValue = key;
       }

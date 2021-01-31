@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <vue-select-list :data="data" :height="400" v-model="value" multiple />
-    <vue-select-list :data="data" :height="400" v-model="value1" />
+    <vue-select-list :data="data" :height="300" v-model="value1" />
   </div>
 </template>
 

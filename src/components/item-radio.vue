@@ -2,14 +2,21 @@
   <div class="vsp__item__radio">
     <slot>
       <span>{{ source.label }}</span>
-      <input type="radio" :checked="source.checked" />
+      <!-- <icon-selected v-if="!source.selected" /> -->
+      <svg-icon :name="source.selected ? 'selected' : 'unselected'"></svg-icon>
+      <!-- <input type="radio" :checked="source.selected" /> -->
     </slot>
   </div>
 </template>
 
 <script>
+// import IconSelected from '@/components/icons/icon-selected.vue'
 export default {
   name: "ItemRadio",
+
+  // components: {
+  //   IconSelected
+  // },
 
   props: {
     index: {
@@ -25,11 +32,6 @@ export default {
 
 <style lang="less" scoped>
 .vsp__item__radio {
-  // display: flex;
-  // align-items: center;
-  // height: 100%;
-  // padding: 0 .625rem;
-  // border-bottom: 1px solid #dfe6ee;
 }
 /deep/.van-cell__title {
   &::after {

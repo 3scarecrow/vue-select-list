@@ -1,7 +1,7 @@
 <template>
   <div class="vue-select-panel__item__checkbox">
     <slot v-bind="{ data: source }">
-      <input type="checkbox" :checked="source.checked" />
+      <input type="checkbox" :checked="source.selected" />
       <span>{{ source.label }}</span>
     </slot>
   </div>
