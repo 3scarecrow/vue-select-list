@@ -10,27 +10,27 @@
   </div>
 </template>
 <script>
-import VueSelectList from "../src";
+import VueSelectList from '../src'
 export default {
-  name: "App",
+  name: 'App',
   components: {
     VueSelectList
   },
   data() {
-    const options = [...Array(500).keys()].map(val => ({
+    const options = [...Array(500).keys()].map((val) => ({
       label: `label ${val}`,
       value: val
-    }));
+    }))
     return {
       value: 3,
       value1: [1, 3],
       options,
-      asyncOptions: new Promise(resolve => {
+      asyncOptions: new Promise((resolve) => {
         setTimeout(() => {
-          resolve(options);
-        }, 5000);
+          resolve(options)
+        }, 5000)
       })
-    };
+    }
   }
-};
+}
 </script>

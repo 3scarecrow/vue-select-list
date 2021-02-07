@@ -1,12 +1,12 @@
-import VueSelectList from "./vue-select-list.vue";
+import VueSelectList from './vue-select-list.vue'
 
-VueSelectList.install = function(Vue) {
-  Vue.component("VueSelectList", VueSelectList);
-  Vue.component("vue-select-list", VueSelectList);
-};
-
-if (typeof window !== "undefined" && window.Vue) {
-  VueSelectList.install(window.Vue);
+VueSelectList.install = function (Vue) {
+  Vue.component('VueSelectList', VueSelectList)
+  Vue.component('vue-select-list', VueSelectList)
 }
 
-export default VueSelectList;
+if (typeof window !== 'undefined' && window.Vue) {
+  VueSelectList.install(window.Vue)
+}
+
+export default VueSelectList

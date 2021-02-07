@@ -47,19 +47,19 @@
 </template>
 
 <script>
-import VirtualList from "vue-virtual-scroll-list";
-import { isArray, isFunction, isPromise, parseUnit } from "./utils";
+import VirtualList from 'vue-virtual-scroll-list'
+import { isArray, isFunction, isPromise, parseUnit } from './utils'
 
 export default {
-  name: "VueSelectList",
+  name: 'VueSelectList',
 
   components: {
     VirtualList
   },
 
   model: {
-    prop: "value",
-    event: "change"
+    prop: 'value',
+    event: 'change'
   },
 
   props: {
@@ -76,7 +76,7 @@ export default {
     },
     dataKey: {
       type: String,
-      default: "value"
+      default: 'value'
     },
     value: {
       type: [String, Number, Array]
@@ -95,11 +95,11 @@ export default {
     },
     loadingText: {
       type: String,
-      default: "Loading..."
+      default: 'Loading...'
     },
     emptyText: {
       type: String,
-      default: "No Result"
+      default: 'No Result'
     }
   },
 
@@ -107,42 +107,42 @@ export default {
     return {
       loading: false,
       listHeight: 0,
-      internalValue: this.multiple ? [] : "",
+      internalValue: this.multiple ? [] : '',
       internalData: []
-    };
+    }
   },
 
   computed: {
     getValue() {
-      const val = this.internalValue;
-      return isArray(val) ? [...val] : val;
+      const val = this.internalValue
+      return isArray(val) ? [...val] : val
     },
     mergeProps() {
       return {
         size: this.itemHeight,
         remain: this.itemRemain,
         bench: this.itemBench
-      };
+      }
     }
   },
 
   watch: {
     height: {
       handler() {
-        this.calcListHeight();
+        this.calcListHeight()
       },
       immediate: true
     },
     value: {
       handler(val) {
-        this.normalizeValue(val);
-        this.updateSelectedStatus(this.internalValue);
+        this.normalizeValue(val)
+        this.updateSelectedStatus(this.internalValue)
       },
       immediate: true
     },
     options: {
       handler() {
-        this.initData();
+        this.initData()
       },
       immediate: true
     }
@@ -152,63 +152,65 @@ export default {
     calcListHeight() {
       this.listHeight = parseUnit(
         this.height || this.itemHeight * this.itemRemain
-      );
+      )
     },
     async initData() {
-      let tempData = [];
-      const options = this.options;
+      let tempData = []
+      const options = this.options
       if (isArray(options)) {
-        tempData = options;
+        tempData = options
       } else if (isFunction(options) || isPromise(options)) {
-        this.loading = true;
-        const result = isPromise(options) ? await options : await options();
+        this.loading = true
+        const result = isPromise(options) ? await options : await options()
         if (isArray(result)) {
-          tempData = result;
-          this.loading = false;
+          tempData = result
+          this.loading = false
         }
       }
-      this.internalData = tempData.map(item => ({
+      this.internalData = tempData.map((item) => ({
         ...item,
         selected: !!item.selected
-      }));
-      this.updateSelectedStatus();
+      }))
+      this.updateSelectedStatus()
     },
     normalizeValue(val) {
       if (this.multiple) {
-        this.internalValue = isArray(val) ? [...val] : [val];
+        this.internalValue = isArray(val) ? [...val] : [val]
       } else {
-        this.internalValue = val;
+        this.internalValue = val
       }
     },
 
     updateSelectedStatus() {
-      const value = this.getValue;
-      const values = isArray(value) ? value : [value];
-      this.internalData.forEach(item => {
-        item.selected = values.includes(item[this.dataKey]);
-      });
+      const value = this.getValue
+      const values = isArray(value) ? value : [value]
+      this.internalData.forEach((item) => {
+        item.selected = values.includes(item[this.dataKey])
+      })
     },
     onClick(data) {
-      const key = data[this.dataKey];
+      const key = data[this.dataKey]
       if (this.multiple) {
-        const item = this.internalData.find(item => item[this.dataKey] === key);
+        const item = this.internalData.find(
+          (item) => item[this.dataKey] === key
+        )
         if (item.selected) {
-          const index = this.internalValue.indexOf(key);
-          this.internalValue.splice(index, 1);
+          const index = this.internalValue.indexOf(key)
+          this.internalValue.splice(index, 1)
         } else {
-          this.internalValue.push(key);
+          this.internalValue.push(key)
         }
-        item.selected = !item.selected;
+        item.selected = !item.selected
       } else {
-        this.internalData.forEach(item => {
-          item.selected = item[this.dataKey] === key;
-        });
-        this.internalValue = key;
+        this.internalData.forEach((item) => {
+          item.selected = item[this.dataKey] === key
+        })
+        this.internalValue = key
       }
-      this.$emit("change", this.getValue, data);
+      this.$emit('change', this.getValue, data)
     }
   }
-};
+}
 </script>
 <style lang="less" scoped>
 .vsl {
@@ -231,7 +233,7 @@ export default {
     &::after {
       position: absolute;
       box-sizing: border-box;
-      content: "";
+      content: '';
       pointer-events: none;
       right: 0;
       bottom: 0;
